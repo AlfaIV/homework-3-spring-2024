@@ -84,3 +84,4 @@ ipython
 
 *.pdf
 PySel/
+secrets.py
