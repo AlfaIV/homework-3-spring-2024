@@ -25,28 +25,22 @@ class PythonOrgSearch(unittest.TestCase):
             loginForm.send_keys(login)
             loginSubmit = driver.find_element(By.CLASS_NAME,"vkuiButton__content")
             loginSubmit.click()
-        finally:
-            driver.quit()
+        except:
+            print('login falls')
 
         try:
-            loginForm = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.NAME, "login"))
+            passwordForm = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.NAME, "password"))
             )
-            loginForm.send_keys(login)
-            loginSubmit = driver.find_element(By.CLASS_NAME,"vkuiButton__content")
-            loginSubmit.click()
-        finally:
-            driver.quit()
-        
-        # self.assertIn("Python", driver.title)
-        # elem = driver.find_element(By.NAME,"q")
-        # elem.send_keys("pycon")
-        # assert "No results found." not in driver.page_source
-        # elem.send_keys(Keys.RETURN)
+            passwordForm.send_keys(password)
+            passwordSubmit = driver.find_element(By.CLASS_NAME,"vkuiButton__content")
+            passwordSubmit.click()
+        except:
+            print('pws falls')
 
-    # def tearDown(self):
-    #     time.sleep(5)
-    #     self.driver.close()
+    def tearDown(self):
+        time.sleep(60)
+        self.driver.quit()
 
 if __name__ == "__main__":
     unittest.main()
