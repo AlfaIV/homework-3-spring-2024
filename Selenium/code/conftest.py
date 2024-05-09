@@ -1,20 +1,23 @@
 import pytest
-from secrets import login, password
+import time
+from secrets import LOGIN_NAME, PASSWORD
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 @pytest.fixture(scope='session')
-def baseSetup():
+def start():
     driver = webdriver.Firefox()
     driver.get("http://ads.vk.com")
-    driver.maximize_window()
+    # driver.maximize_window()
     yield driver
+    # time.sleep(30)
     driver.quit()
 
-@pytest.fixture
-def login(driver):
+@pytest.fixture(scope='session')
+def login(start):  
+        driver = start
         login_button = driver.find_element(By.CLASS_NAME,"ButtonCabinet_primary__LCfol")
         login_button.click()
         
@@ -38,30 +41,23 @@ def login(driver):
         # except:
         #     print('pws falls')
 
-        try:
-            OAuthBut = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, ".//button[@data-test-id='oAuthService_mail_ru']"))
-            )
-            OAuthBut.click()
-        except:
-            print('oauth falls')
+        OAuthBut = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, ".//button[@data-test-id='oAuthService_mail_ru']"))
+        )
+        OAuthBut.click()
 
-        try:
-            OAuthLogin = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.NAME, "username"))
-            )
-            OAuthLogin.send_keys(login)
-            OAuthSubmitBut = driver.find_element(By.CLASS_NAME, "submit-button-wrap")
-            OAuthSubmitBut.click()
-        except:
-            print('oauth login falls')
+        OAuthLogin = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME, "username"))
+        )
+        OAuthLogin.send_keys(LOGIN_NAME)
+        OAuthSubmitBut = driver.find_element(By.CLASS_NAME, "submit-button-wrap")
+        OAuthSubmitBut.click()
 
-        try:
-            OAuthLogin = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.NAME, "password"))
-            )
-            OAuthLogin.send_keys(password)
-            OAuthSubmitBut = driver.find_element(By.CLASS_NAME, "submit-button-wrap")
-            OAuthSubmitBut.click()
-        except:
-            print('oauth password falls')
+        OAuthLogin = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME, "password"))
+        )
+        OAuthLogin.send_keys(PASSWORD)
+        OAuthSubmitBut = driver.find_element(By.CLASS_NAME, "submit-button-wrap")
+        OAuthSubmitBut.click()
+
+        return driver
