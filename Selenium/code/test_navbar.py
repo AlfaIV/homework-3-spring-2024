@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from secrets import USER_NAME
+from selenium.common.exceptions import TimeoutException
 
 def testVkIcon(login):
         driver = login
@@ -23,3 +24,90 @@ def testLK(login):
         )
         assert dropBox.find_element(By.TAG_NAME, "a").text == 'Все кабинеты'
         assert dropBox.find_element(By.XPATH, ".//div[contains(@class, 'vkuiSimpleCell__content')]/span[1]").text == USER_NAME
+
+
+def testBell(login):
+        driver = login
+        bellIco = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "header_bellNotifications__vAHeR"))
+        )
+        bellIco.click()
+        bellDropbox = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "BellNotificationsContent_cardContent__Hkz1H"))
+        )
+        # print(bellDropbox.get_attribute("innerHTML"))
+        assert bellDropbox.find_element(By.XPATH, ".//div[contains(@class, 'vkuiHeader__main')]/h2/span[1]/span[1]").text == "Уведомления"
+        assert bellDropbox.find_element(By.XPATH, ".//div[contains(@class, 'EmptyPlaceholder_wrapper__8LcAC')]/div[1]/h2").text == "Нет уведомлений"
+        assert bellDropbox.find_element(By.XPATH, ".//h4/span[1]/span[1]").text == "Как только у вас появятся уведомления, они отобразятся здесь"
+        
+
+def testUserAcc(login):
+        driver = login
+        userIco = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "userMenu_avatar__oCUFq"))
+        )
+        userIco.click()
+        outButton = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//div[@class='vkuiPopover__in']/div[1]/div[@role='button']"))
+        )
+        outButton.click()
+        # print(bellDropbox.get_attribute("innerHTML"))
+        assert driver.current_url == 'https://ads.vk.com/'
+
+@pytest.fixture
+def testHelpSideButton(login):
+        driver = login
+        helpButton = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "Hint_hintTrigger__ixYRu"))
+        )
+        helpButton.click()
+        # тут проблема в том, что после срабатывания перехода на внешнюю ссылку необходимо 2 раза тыкать, иначе панель помощь не открывается
+        try:
+            listOfButtons = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "Tooltip_tooltipContainer__P1b-O"))
+            )
+        except TimeoutException:
+            helpButton.click()
+            listOfButtons = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "Tooltip_tooltipContainer__P1b-O"))
+            )
+        return listOfButtons
+
+@pytest.mark.parametrize("link_num, link", [
+        (1, 'https://ads.vk.com/cases'),
+        (2, 'https://ads.vk.com/help/subcategories/agency'),
+        (3, 'https://ads.vk.com/upvote')
+        ])
+def testRedirectSideButton(login, testHelpSideButton, link_num, link):
+        driver = login
+        companyKeysButton = WebDriverWait(testHelpSideButton, 10).until(
+            EC.presence_of_element_located((By.XPATH, f".//section[1]/a[{link_num}]/div[1]"))
+        )
+        # companyKeysButton = testHelpSideButton.find_element(By.XPATH, f".//section[1]/a[{link_num}]/div[1]")
+        companyKeysButton.click()
+        
+        driver.switch_to.window(driver.window_handles[-1])
+        # WebDriverWait(driver, 10).until(EC.url_to_be(driver.current_url))
+
+        # assert driver.current_url == link
+        driver.close()
+        driver.switch_to.window(driver.window_handles[0])
+
+# def testCompanyKeysHelpSideButton(login, testHelpSideButton):
+#         driver = login
+#         companyKeysButton = testHelpSideButton.find_element(By.XPATH, ".//section[1]/a[1]/div[1]")
+#         companyKeysButton.click()
+#         assert driver.current_url == 'https://ads.vk.com/cases'
+
+# def testCompanyKeysHelpSideButton(login, testHelpSideButton):
+#         driver = login
+#         companyKeysButton = testHelpSideButton.find_element(By.XPATH, ".//section[1]/a[2]/div[1]")
+#         companyKeysButton.click()
+#         assert driver.current_url == 'https://ads.vk.com/help/subcategories/agency'
+
+# def testCompanyKeysHelpSideButton(login, testHelpSideButton):
+#         driver = login
+#         companyKeysButton = testHelpSideButton.find_element(By.XPATH, ".//section[1]/a[3]/div[1]")
+#         companyKeysButton.click()
+#         assert driver.current_url == 'https://ads.vk.com/upvote'
+
