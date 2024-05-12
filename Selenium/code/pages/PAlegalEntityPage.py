@@ -9,8 +9,10 @@ class PAlegalEntityLocators:
     LOCATOR_BELL = (By.CLASS_NAME, "header_bellNotifications__vAHeR")
     LOCATOR_USER_ICO = (By.CLASS_NAME, "userMenu_avatar__oCUFq")
     LOCATOR_LOG_OUT = (By.XPATH, "//div[@class='vkuiPopover__in']/div[1]/div[@role='button']")
+    LOCATOR_BUDGET = (By.XPATH, "//a[@data-route='budget']/div[2]")
     LOCATOR_ACCESS_RIGHT = (By.XPATH, "//a[@data-route='access_rights']/div[2]")
     LOCATOR_ADD_MANAGER = (By.XPATH, "//div[@data-testid='add-manager']/div[2]")
+    LOCATOR_CLIENTS = (By.XPATH, "//a[@data-route='dashboardV2']/div[2]")
 
 class PAlegalEntityTopNavbar(BasePage):
     
@@ -40,6 +42,16 @@ class PAlegalEntityTopNavbar(BasePage):
     def user_log_out(self):
         self.click_to_user_ico()
         self.click_to_element(PAlegalEntityLocators.LOCATOR_LOG_OUT)
+
+    def click_to_clients(self):
+        self.click_to_element(PAlegalEntityLocators.LOCATOR_CLIENTS)
+
+    def click_to_budget(self):
+        self.click_to_element(PAlegalEntityLocators.LOCATOR_BUDGET)
+    
+    def specify_banking_details(self):
+        self.click_to_element((By.XPATH, "//div[@class='vkuiPlaceholder__action']"))
+        self.click_to_element((By.XPATH, "//div[@aria-label='Закрыть']"))
 
     def click_to_access_right(self):
         self.click_to_element(PAlegalEntityLocators.LOCATOR_ACCESS_RIGHT)

@@ -116,6 +116,7 @@ def testRedirectSideButton(login, testHelpSideButton, link_num, link):
 
 
 def test_clients(login):
+        # done
         driver = login
         clientsIco = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "//a[@data-route='dashboardV2']/div[2]"))
@@ -123,6 +124,7 @@ def test_clients(login):
         clientsIco.click()
 
 def test_budget(login):
+        # done
         driver = login
         budgetIco = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "//a[@data-route='budget']/div[2]"))
