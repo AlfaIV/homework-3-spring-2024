@@ -14,6 +14,7 @@ def testVkIcon(login):
         assert driver.current_url == 'https://ads.vk.com/hq/dashboard'
 
 def testLK(login):
+        # 
         driver = login
         nameIco = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "AccountSwitch_changeAccountButton__o5T9V"))
@@ -27,6 +28,7 @@ def testLK(login):
 
 
 def testBell(login):
+        # done
         driver = login
         bellIco = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "header_bellNotifications__vAHeR"))
@@ -42,6 +44,7 @@ def testBell(login):
         
 
 def testUserAcc(login):
+        # done
         driver = login
         userIco = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CLASS_NAME, "userMenu_avatar__oCUFq"))
