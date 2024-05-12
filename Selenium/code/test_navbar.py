@@ -111,3 +111,47 @@ def testRedirectSideButton(login, testHelpSideButton, link_num, link):
 #         companyKeysButton.click()
 #         assert driver.current_url == 'https://ads.vk.com/upvote'
 
+
+def test_clients(login):
+        driver = login
+        clientsIco = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//a[@data-route='dashboardV2']/div[2]"))
+        )
+        clientsIco.click()
+
+def test_budget(login):
+        driver = login
+        budgetIco = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//a[@data-route='budget']/div[2]"))
+        )
+        budgetIco.click()
+        specDetailsBut = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//div[@class='vkuiPlaceholder__action']"))
+        )
+        specDetailsBut.click()
+        closeButton = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//div[@aria-label='Закрыть']"))
+        )
+        closeButton.click()
+
+def test_access_right(login):
+        driver = login
+        clientsIco = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//a[@data-route='access_rights']/div[2]"))
+        )
+        clientsIco.click()
+        addManagerButton = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//div[@data-testid='add-manager']/div[2]"))
+        )
+        addManagerButton.click()
+        addManagerModal = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "vkuiModalPage__content-in"))
+        )
+        managerFIO = addManagerModal.find_element(By.XPATH, ".//input[@name='managerFio']")
+        managerFIO.send_keys("123")
+        managerAcc = addManagerModal.find_element(By.XPATH, ".//input[@name='managerEmail']")
+        managerAcc.send_keys("123")
+        saveButt = addManagerModal.find_element(By.XPATH, ".//div[@class='ModalFooterSimple_container__rteom']/button[2]")
+        saveButt.click()
+        closeButton = addManagerModal.find_element(By.XPATH, "//div[@aria-label='Закрыть']")
+        closeButton.click()
