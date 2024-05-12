@@ -138,6 +138,7 @@ def test_budget(login):
         closeButton.click()
 
 def test_access_right(login):
+        # done
         driver = login
         clientsIco = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "//a[@data-route='access_rights']/div[2]"))

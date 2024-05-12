@@ -9,6 +9,8 @@ class PAlegalEntityLocators:
     LOCATOR_BELL = (By.CLASS_NAME, "header_bellNotifications__vAHeR")
     LOCATOR_USER_ICO = (By.CLASS_NAME, "userMenu_avatar__oCUFq")
     LOCATOR_LOG_OUT = (By.XPATH, "//div[@class='vkuiPopover__in']/div[1]/div[@role='button']")
+    LOCATOR_ACCESS_RIGHT = (By.XPATH, "//a[@data-route='access_rights']/div[2]")
+    LOCATOR_ADD_MANAGER = (By.XPATH, "//div[@data-testid='add-manager']/div[2]")
 
 class PAlegalEntityTopNavbar(BasePage):
     
@@ -38,3 +40,13 @@ class PAlegalEntityTopNavbar(BasePage):
     def user_log_out(self):
         self.click_to_user_ico()
         self.click_to_element(PAlegalEntityLocators.LOCATOR_LOG_OUT)
+
+    def click_to_access_right(self):
+        self.click_to_element(PAlegalEntityLocators.LOCATOR_ACCESS_RIGHT)
+    
+    def addManager(self, name, acc):
+        self.click_to_element(PAlegalEntityLocators.LOCATOR_ADD_MANAGER)
+        self.set((By.XPATH, ".//input[@name='managerFio']"), name)
+        self.set((By.XPATH, ".//input[@name='managerEmail']"), acc)
+        self.click_to_element((By.XPATH, ".//div[@class='ModalFooterSimple_container__rteom']/button[2]"))
+        self.click_to_element((By.XPATH, "//div[@aria-label='Закрыть']"))
