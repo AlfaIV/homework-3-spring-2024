@@ -2,6 +2,7 @@ from pages.base_page import BasePage
 from conftest import *
 
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 class PAlegalEntityLocators:
     LOCATOR_VK_ICO = (By.CLASS_NAME, "header_left__cv9bp")
@@ -13,6 +14,7 @@ class PAlegalEntityLocators:
     LOCATOR_ACCESS_RIGHT = (By.XPATH, "//a[@data-route='access_rights']/div[2]")
     LOCATOR_ADD_MANAGER = (By.XPATH, "//div[@data-testid='add-manager']/div[2]")
     LOCATOR_CLIENTS = (By.XPATH, "//a[@data-route='dashboardV2']/div[2]")
+    LOCATOR_HELP_BUTTON = (By.CLASS_NAME, "Hint_hintTrigger__ixYRu")
 
 class PAlegalEntityTopNavbar(BasePage):
     
@@ -42,6 +44,21 @@ class PAlegalEntityTopNavbar(BasePage):
     def user_log_out(self):
         self.click_to_user_ico()
         self.click_to_element(PAlegalEntityLocators.LOCATOR_LOG_OUT)
+
+    def click_to_help_button(self):
+        self.click_to_element(PAlegalEntityLocators.LOCATOR_HELP_BUTTON)
+    
+    def redirect_to_help_button(self, link_num):
+        REDIRECT_LOCATOR = (By.XPATH, f".//div[@class='Tooltip_tooltipContainer__P1b-O']/section[1]/a[{link_num}]/div[1]")
+        try:
+            self.click_to_element(REDIRECT_LOCATOR)
+        except TimeoutException:
+            self.click_to_help_button()
+            self.click_to_element(REDIRECT_LOCATOR)
+        # self.driver.switch_to.window(self.driver.window_handles[-1])
+        # # WebDriverWait(driver, 10).until(EC.url_to_be(driver.current_url))
+        # self.driver.close()
+        # self.driver.switch_to.window(self.driver.window_handles[0])
 
     def click_to_clients(self):
         self.click_to_element(PAlegalEntityLocators.LOCATOR_CLIENTS)

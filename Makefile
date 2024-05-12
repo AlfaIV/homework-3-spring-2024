@@ -1,6 +1,8 @@
-GetReq:
+get_req:
 	pip freeze > requirements.txt
 
-pytest --setup-show
-pytest --setup-show --capture=no
-pytest .\Selenium\code\test_navbar.py::testRedirectSideButton --capture=no --setup-show
+run_all_tests:
+	pytest .\Selenium\code\test.py
+
+run_test:
+	pytest .\Selenium\code\test.py::$(test_name) --capture=no --setup-show

@@ -85,6 +85,7 @@ def testRedirectSideButton(login, testHelpSideButton, link_num, link):
         driver = login
         companyKeysButton = WebDriverWait(testHelpSideButton, 10).until(
             EC.presence_of_element_located((By.XPATH, f".//section[1]/a[{link_num}]/div[1]"))
+            # (By.XPATH, f".//div[@class='Tooltip_tooltipContainer__P1b-O']/section[1]/a[{link_num}]/div[1]")
         )
         # companyKeysButton = testHelpSideButton.find_element(By.XPATH, f".//section[1]/a[{link_num}]/div[1]")
         companyKeysButton.click()
