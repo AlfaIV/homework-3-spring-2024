@@ -32,6 +32,9 @@ class BasePage:
     
     def change_tab(self, window):
         return self.driver.switch_to.window(window)
+    
+    def switch_to_iframe(self, iframe):
+        return self.driver.switch_to.frame(iframe)
 
     def close_current_tab(self):
         return self.driver.close()

@@ -39,6 +39,11 @@ def test_access_right(login):
     pa_legal_entity_page.click_to_access_right()
     pa_legal_entity_page.addManager("123","123")
 
+# def test_support_iframe(login):
+#     pa_legal_entity_page = PAlegalEntityTopNavbar(login)
+#     time.sleep(20)
+#     pa_legal_entity_page.open_support_iframe(30)
+
 def test_top_navbar(login):
     
     pa_legal_entity_page = PAlegalEntityTopNavbar(login)

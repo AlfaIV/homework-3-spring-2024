@@ -15,6 +15,7 @@ class PAlegalEntityLocators:
     LOCATOR_ADD_MANAGER = (By.XPATH, "//div[@data-testid='add-manager']/div[2]")
     LOCATOR_CLIENTS = (By.XPATH, "//a[@data-route='dashboardV2']/div[2]")
     LOCATOR_HELP_BUTTON = (By.CLASS_NAME, "Hint_hintTrigger__ixYRu")
+    LOCATOR_SUPPORT_IFRAME = (By.XPATH, "//div[@id='vk_community_messages']/iframe")
 
 class PAlegalEntityTopNavbar(BasePage):
     
@@ -76,3 +77,6 @@ class PAlegalEntityTopNavbar(BasePage):
         self.set((By.XPATH, ".//input[@name='managerEmail']"), acc)
         self.click_to_element((By.XPATH, ".//div[@class='ModalFooterSimple_container__rteom']/button[2]"))
         self.click_to_element((By.XPATH, "//div[@aria-label='Закрыть']"))
+
+    def open_support_iframe(self, wait_time):
+        self.switch_to_iframe(PAlegalEntityLocators.LOCATOR_SUPPORT_IFRAME)
