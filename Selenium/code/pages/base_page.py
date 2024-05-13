@@ -29,3 +29,12 @@ class BasePage:
 
     def get_title(self):
         return self.driver.title
+    
+    def change_tab(self, window):
+        return self.driver.switch_to.window(window)
+
+    def close_current_tab(self):
+        return self.driver.close()
+
+    def get_tab(self, tab_num):
+        return self.driver.window_handles[tab_num]

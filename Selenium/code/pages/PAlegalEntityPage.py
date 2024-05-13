@@ -55,10 +55,7 @@ class PAlegalEntityTopNavbar(BasePage):
         except TimeoutException:
             self.click_to_help_button()
             self.click_to_element(REDIRECT_LOCATOR)
-        # self.driver.switch_to.window(self.driver.window_handles[-1])
-        # # WebDriverWait(driver, 10).until(EC.url_to_be(driver.current_url))
-        # self.driver.close()
-        # self.driver.switch_to.window(self.driver.window_handles[0])
+        # WebDriverWait(driver, 10).until(EC.url_to_be(driver.current_url))
 
     def click_to_clients(self):
         self.click_to_element(PAlegalEntityLocators.LOCATOR_CLIENTS)
