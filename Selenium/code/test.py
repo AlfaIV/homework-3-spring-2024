@@ -1,6 +1,11 @@
 from pages.PAlegalEntityPage import PAlegalEntityTopNavbar
 import time
 import pytest
+import allure
+
+@allure.title("Вкладыши: Личный кабинет(юридическое лицо) ")
+@allure.description("Домашнее задание 3 по курсу 'Обеспечение качества' образовательного проекта VK Education команды Вкладыши.")
+@allure.link("https://ads.vk.com", name="Website")
 
 
 @pytest.mark.parametrize("link_num, link", [
@@ -14,9 +19,9 @@ def test_help_button(login, link_num, link):
     pa_legal_entity_page.redirect_to_help_button(link_num)
     pa_legal_entity_page.change_tab(pa_legal_entity_page.get_tab(-1))
     assert pa_legal_entity_page.get_current_url() == link
-    # time.sleep(5)
     pa_legal_entity_page.close_current_tab()
     pa_legal_entity_page.change_tab(pa_legal_entity_page.get_tab(0))
+
 
 def test_clients(login):
 
@@ -39,10 +44,9 @@ def test_access_right(login):
     pa_legal_entity_page.click_to_access_right()
     pa_legal_entity_page.addManager("123","123")
 
-# def test_support_iframe(login):
-#     pa_legal_entity_page = PAlegalEntityTopNavbar(login)
-#     time.sleep(20)
-#     pa_legal_entity_page.open_support_iframe(30)
+def test_support_iframe(login):
+    pa_legal_entity_page = PAlegalEntityTopNavbar(login)
+    pa_legal_entity_page.open_support_iframe(20)
 
 def test_top_navbar(login):
     

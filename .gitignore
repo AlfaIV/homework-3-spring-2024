@@ -85,3 +85,5 @@ ipython
 *.pdf
 PySel/
 secrets.py
+
+allure-results/

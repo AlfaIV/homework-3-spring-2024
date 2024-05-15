@@ -4,6 +4,8 @@ from conftest import *
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 
+import time
+
 class PAlegalEntityLocators:
     LOCATOR_VK_ICO = (By.CLASS_NAME, "header_left__cv9bp")
     LOCATOR_USER_NAME = (By.CLASS_NAME, "AccountSwitch_changeAccountButton__o5T9V")
@@ -16,6 +18,7 @@ class PAlegalEntityLocators:
     LOCATOR_CLIENTS = (By.XPATH, "//a[@data-route='dashboardV2']/div[2]")
     LOCATOR_HELP_BUTTON = (By.CLASS_NAME, "Hint_hintTrigger__ixYRu")
     LOCATOR_SUPPORT_IFRAME = (By.XPATH, "//div[@id='vk_community_messages']/iframe")
+
 
 class PAlegalEntityTopNavbar(BasePage):
     
@@ -79,4 +82,6 @@ class PAlegalEntityTopNavbar(BasePage):
         self.click_to_element((By.XPATH, "//div[@aria-label='Закрыть']"))
 
     def open_support_iframe(self, wait_time):
+        time.sleep(wait_time)
+        self.click_to_element((By.XPATH, "//div[@id='vk_community_messages']"))
         self.switch_to_iframe(PAlegalEntityLocators.LOCATOR_SUPPORT_IFRAME)

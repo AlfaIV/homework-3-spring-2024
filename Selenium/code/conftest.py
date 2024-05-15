@@ -12,7 +12,7 @@ def start():
     driver.get("http://ads.vk.com")
     # driver.maximize_window()
     yield driver
-    # time.sleep(30)
+    time.sleep(30)
     driver.quit()
 
 @pytest.fixture(scope='session')
